@@ -1,6 +1,7 @@
 import 'package:brew_crew/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:brew_crew/shared/constants.dart';
+import 'package:brew_crew/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -20,14 +21,14 @@ class _SignInState extends State<SignIn> {
   final _formKey = GlobalKey<FormState>();
 
   // Variables
-    String email = '';
-    String password = '';
-    String error = '';
+  String email = '';
+  String error = '';
+  bool loading = false;
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.brown[100],
       appBar: AppBar(
         backgroundColor: Colors.brown[400],
@@ -74,11 +75,13 @@ class _SignInState extends State<SignIn> {
                 ),
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    print(email);
-                    print(password);
+                    setState(() => loading = true);
                     dynamic result = await _auth.signInWithEmalAndPassword(email, password);
                     if (result == null) {
-                      setState(() => error = 'Sign in failed');
+                      setState(() {
+                        error = 'Sign in failed';
+                        loading = false;
+                      });
                     }
                   }
                 },
