@@ -62,8 +62,8 @@ class _SettingFormState extends State<SettingForm> {
                 // Slider
                 Slider(
                 value: (_currentStrength ?? user.strength).toDouble(),
-                activeColor: Colors.brown[_currentStrength ?? 100],
-                inactiveColor: Colors.brown[_currentStrength ?? 100],
+                activeColor: Colors.brown[_currentStrength ?? user.strength],
+                inactiveColor: Colors.brown[_currentStrength ?? user.strength],
                 min: 100,
                 max: 900,
                 divisions: 8,
