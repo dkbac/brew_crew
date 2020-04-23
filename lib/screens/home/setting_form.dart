@@ -71,18 +71,23 @@ class _SettingFormState extends State<SettingForm> {
               ),
                 // Button
                 RaisedButton(
-                color: Colors.brown[900],
-                child: Text(
-                  'Update',
-                  style: TextStyle(color: Colors.white),
+                  color: Colors.brown[900],
+                  child: Text(
+                    'Update',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()){
+                      await DatabaseService(uid: user.uid).updateUserData(
+                        _currentSugar ?? user.sugars, 
+                        _currentName ?? user.name, 
+                        _currentStrength ?? user.strength,
+                      );
+                    } else {
+                      
+                    }
+                  },
                 ),
-                onPressed: () async {
-                  print(_currentName);
-                  print(_currentSugar);
-                  print(_currentStrength);
-
-                },
-              ),
               ],
             ),
           );
